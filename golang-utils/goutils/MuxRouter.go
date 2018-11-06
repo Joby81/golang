@@ -1,4 +1,4 @@
-package controller
+package goutils
 
 import (
     "github.com/gorilla/mux"
@@ -30,5 +30,5 @@ type Routes []Route
 var routes = Routes{}
 
 func CreateNewRoute(route Route)  {
-    _ = append(routes, route);
+    routes = append(routes, route);
 }

@@ -1,51 +1,39 @@
 package controller
 
 import (
-    "net/http"
+    "github.com/Joby81/golang/demo-microservice/service" // NEW
     "github.com/gorilla/mux"
-    "github.com/Joby81/golang/demo-microservice/service"  // NEW
+    "github.com/Joby81/golang/golang-utils/goutils"
+
 )
 
-type Route struct {
-    Name        string
-    Method      string
-    Pattern     string
-    HandlerFunc http.HandlerFunc
-}
 
+func GetTodoRoutes() *mux.Router {
 
-func TodoRoutes() *mux.Router {
-
-    router := mux.NewRouter().StrictSlash(true)
-    for _, route := range routes {
-        router.
-            Methods(route.Method).
-            Path(route.Pattern).
-            Name(route.Name).
-            Handler(route.HandlerFunc)
-    }
-    return router
-}
-
-type Routes []Route
-
-var routes = Routes{
-    Route{
+    var index = goutils.Route{
         "Index",
         "GET",
         "/",
         service.Index,
-    },
-    Route{
+    };
+
+    var todoIndex= goutils.Route{
         "TodoIndex",
         "GET",
         "/todos",
         service.TodoIndex,
-    },
-    Route{
+    }
+
+    var todoShow=goutils.Route{
         "TodoShow",
         "GET",
         "/todos/{todoId}",
         service.TodoShow,
-    },
+    }
+
+    goutils.CreateNewRoute(index);
+    goutils.CreateNewRoute(todoIndex);
+    goutils.CreateNewRoute(todoShow);
+    return goutils.GetRoutes()
 }
+
