@@ -1,9 +1,8 @@
 package controller
 
 import (
-    "net/http"
     "github.com/gorilla/mux"
-    "github.com/Joby81/golang/demo-microservice/service"  // NEW
+    "net/http"
 )
 
 type Route struct {
@@ -14,7 +13,7 @@ type Route struct {
 }
 
 
-func TodoRoutes() *mux.Router {
+func GetRoutes() *mux.Router {
 
     router := mux.NewRouter().StrictSlash(true)
     for _, route := range routes {
@@ -28,24 +27,8 @@ func TodoRoutes() *mux.Router {
 }
 
 type Routes []Route
+var routes = Routes{}
 
-var routes = Routes{
-    Route{
-        "Index",
-        "GET",
-        "/",
-        service.Index,
-    },
-    Route{
-        "TodoIndex",
-        "GET",
-        "/todos",
-        service.TodoIndex,
-    },
-    Route{
-        "TodoShow",
-        "GET",
-        "/todos/{todoId}",
-        service.TodoShow,
-    },
+func CreateNewRoute(route Route)  {
+    _ = append(routes, route);
 }
